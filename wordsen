@@ -1,0 +1,15 @@
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+while 1:
+    word=input("Enter word").lower()
+    try:
+        htmlsite=urlopen("https://wordsinasentence.com/"+word+"-in-a-sentence/")
+    except:
+        print("Unexpected error:word not found or incorrect spelling")
+        continue
+    soup=BeautifulSoup(htmlsite,"html.parser")
+    content=soup.find("div", {"id": "content"})
+    ps=content.select("p")
+    for t in ps:
+        print(t.string+"\n")
+
